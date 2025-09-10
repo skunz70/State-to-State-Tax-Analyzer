@@ -1,0 +1,53 @@
+openapi: 3.1.0
+info:
+  title: State Tax Comparison API
+  version: 1.0.0
+servers:
+  - url: https://YOUR-RENDER-URL.onrender.com
+
+paths:
+  /compare_states:
+    post:
+      operationId: compareStates
+      summary: Compare income tax in two U.S. states
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - agi
+                - state_1
+                - state_2
+              properties:
+                agi:
+                  type: number
+                state_1:
+                  type: string
+                state_2:
+                  type: string
+      responses:
+        '200':
+          description: Comparison result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state_1:
+                    type: object
+                    properties:
+                      state:
+                        type: string
+                      estimated_tax:
+                        type: number
+                  state_2:
+                    type: object
+                    properties:
+                      state:
+                        type: string
+                      estimated_tax:
+                        type: number
+                  savings:
+                    type: number
